@@ -1,0 +1,121 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+
+      <script src="https://unpkg.com/vue@next"></script>
+
+
+      <style>
+        td, th {
+          width: 25%;
+          text-align: center;
+          border: 1px black solid;
+          border-bottom: cornflowerblue solid;
+        }
+
+      </style>
+
+    </head>
+    <body>
+
+    <div id="app">
+
+      <table>
+        <tr>
+          <th> Item </th>
+          <th> Unit Price </th>
+          <th> Quantity </th>
+          <th> Total </th>
+
+        </tr>
+
+        <tr>
+          <td>{{ name }}</td>
+          <td>{{ unitPrice }}</td>
+
+          <td>
+            <input type="number" id="quantity" v-model.number="quantity">
+            <div class="error-message" v-if="quantityError">{{quantityError}}</div>
+          </td>
+
+          <td>
+
+            <div v-if="quantityError">
+              Invalid quantity
+            </div>
+
+            <div v-else>
+              ${{ total }}
+            </div>
+          </td>
+
+        </tr>
+
+
+      </table>
+
+
+
+    </div>
+    <!-- ALl the page that vue will manage will go here -->
+
+    <script>
+
+      let app = Vue.createApp({
+        data() {
+          return {
+            name: 'Hat',
+            quantity: 1,
+            unitPrice: 4.99,
+            maxQuantity: 20,
+            quantityError: ''
+
+
+
+          }
+        },
+        // in Vue.js computed properties enables you to create a property that can be used to modify manipulate
+        // -- and display data within your components in a readable and efficient manner. you can use computed properties
+        // -- to calculate and display values based on value or set of values in the data model.
+
+        computed: {
+          // set an error message of the new value of quantity is not valid
+
+          total () {
+            if (!Number.isInteger(this.quantity)) {
+              this.quantityError = 'Quantity must be a number'
+            }
+
+            else if (this.quantity < 0  || this.quantity > this.maxQuantity) {
+              this.quantityError = 'Quantity must be between 0 > 20 '
+            }
+
+            // Clear Error id quantity is valid
+
+            else {
+              this.quantityError = ' '
+
+              // Compute Price
+
+              let totalPrice = this.quantity * this.unitPrice
+              let formattedPrice = totalPrice.toFixed(2)
+              return formattedPrice
+            }
+          }
+        }
+
+      })
+      app.mount('#app')
+
+
+
+    </script>
+
+
+
+
+
+    </body>
+    </html>

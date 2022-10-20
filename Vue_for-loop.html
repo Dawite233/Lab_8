@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Cart</title>
+
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <style>
+    #task {
+      border: 2px black solid;
+    }
+  </style>
+
+
+</head>
+<body>
+
+<h1> Hello Vue loops </h1>
+
+
+
+<div id="app">
+
+  <label for=" task "> Please enter your to do task: </label>
+  <input id="task" v-model="newTask">
+  <button v-on:click="addTask"> Add Task </button>
+
+  <li v-for="everytask in tasklist">{{ everytask }}</li>
+
+
+</div>
+
+<script>
+
+  let app = Vue.createApp({
+    data() {
+      return {
+        newTask: ' ',
+        tasklist: []
+
+      }
+    },
+    methods: {
+      addTask() {
+         this.tasklist.push(this.newTask)
+        this.newTask =  ''
+
+      }
+
+    }
+  })
+
+  app.mount('#app')
+
+</script>
+
+</body>
+
+</html>
